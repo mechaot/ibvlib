@@ -1,0 +1,15 @@
+#ignore line changin (CRLF to LF) between windows and linux
+*.py autocrlf
+*.html autocrlf
+*.css autocrlf
+*.js autocrlf
+*.json autocrlf
+*.sh autocrlf
+README.md autocrlf
+
+#keeping binaries
+*.png     binary
+*.jepg    binary
+*.ico     binary
+*.db      binary
+*.sqlite3 binary

@@ -2,9 +2,11 @@
     (c) 2020 Andreas Pösch (andreas.poesch@googlemail.com)
     MIT License
 '''
+# do not be too harsh on test scripts
+# pylint: disable=invalid-name, unused-import
 
-import cv2
 from time import sleep
+import cv2
 
 from FileCamera import FileCamera
 from UsbCamera import UsbCamera
@@ -26,7 +28,7 @@ while True:
 
     # read keyboard input, required to make the image buffer show
     key = cv2.waitKey(1)
-    if (key & 0xff) in (ord("x"), ord("q"), 0x1b):   # 0x1b = ESC
+    if key & 0xff in (ord("x"), ord("q"), 0x1b):   # 0x1b = ESC
         print("Aborting")
         break
 

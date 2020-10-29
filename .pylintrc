@@ -138,7 +138,8 @@ disable=print-statement,
         xreadlines-attribute,
         deprecated-sys-function,
         exception-escape,
-        comprehension-escape
+        comprehension-escape,
+        unused-argument
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -274,7 +275,7 @@ method-naming-style=snake_case
 #method-rgx=
 
 # Naming style matching correct module names.
-module-naming-style=snake_case
+module-naming-style=PascalCase #snake_case
 
 # Regular expression matching correct module names. Overrides module-naming-
 # style.

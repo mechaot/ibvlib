@@ -2,8 +2,8 @@
     Simple USB-Camera class
 '''
 
-import requests
 from urllib.parse import quote
+import requests
 from imageio import imread
 
 class HttpCamera():

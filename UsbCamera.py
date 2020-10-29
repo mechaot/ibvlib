@@ -38,7 +38,7 @@ class UsbCamera():
 
             :returns: next image in stack or None if no image available
         '''
-        success, img = self._capture.read() 
+        success, img = self._capture.read()
         if success:
             return img
         else:

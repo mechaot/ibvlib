@@ -11,13 +11,16 @@ from glob import glob
 from imageio import imread
 
 class FileCamera():
+    '''
+        read files one after another for grabbing images
+    '''
     def __init__(self, file_or_folder, cycle_images=True):
         '''
             :param file_or_folder: (str) a filename (with wildcard support) or name of folder to load
             :param cycle_images: (bool or int) None/False: cycle one time, then end; True: cycle infinitely, (int) cycle this often times
         '''
         self._source = file_or_folder
-        self._filenames = [] 
+        self._filenames = []
         self._current_index = 0
         self._cycle = cycle_images
 
@@ -74,10 +77,9 @@ class FileCamera():
                 return None # cycled out
 
         if self._filenames:
-            fn = self._filenames[self._current_index]
+            active_fn = self._filenames[self._current_index]
             self._current_index += 1
-            img = imread(fn)
+            img = imread(active_fn)
             return img
         else:
             return None
-

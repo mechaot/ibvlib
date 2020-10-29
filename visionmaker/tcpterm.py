@@ -165,7 +165,10 @@ class TcpTerminal(Thread):
         self._termReq = False
         buffer = bytearray()
         while not self._termReq:
-            ch = self.sock.recv(1)
+            try:
+                ch = self.sock.recv(1)
+            except ConnectionAbortedError: # will raise on finishing connection cleanly
+                break
             buffer += ch
             idx = buffer.find(bytes('\n', 'ascii'))
             if idx >= 0:

@@ -39,7 +39,7 @@ class HttpCamera():
         query_string = "&".join([quote(f"{k}={v}") for k, v in self._options.items()])
         url = self._uri + "?" + query_string
 
-        res = requests.get(url)
+        res = requests.get(url, verify=self._verify)
         if res.status_code == 200:
             img = imread(res.content)
             return img

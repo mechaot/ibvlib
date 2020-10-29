@@ -64,10 +64,12 @@ class HttpStreamCamera():
                 self.data= self.data[b+2:]
                 # Decoding the byte stream to cv2 readable matrix format
                 print("data:", len(raw), type(raw))
+                if len(raw) == 0:
+                    continue
                 img_buffer = np.fromstring(raw, dtype=np.uint8)
                 img = cv2.imdecode(img_buffer, cv2.IMREAD_COLOR)
 
                 #img = cv2.resize(img,None,fx=1/2, fy=1/2, interpolation = cv2.INTER_CUBIC)
                 #img = cv2.resize(img,None,fx=1/2, fy=1/2, interpolation = cv2.INTER_LINEAR)
         
-                return img
+                return img[...,::-1]

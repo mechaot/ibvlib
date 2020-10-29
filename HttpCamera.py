@@ -36,7 +36,7 @@ class HttpCamera():
 
             :returns: next image in stack or None if no image available
         '''
-        url = self._uri + "?" + urlencode(self._options.items())
+        url = self._uri + "?" + urlencode(self._options)
 
         res = requests.get(url, verify=self._verify)
         if res.status_code == 200:

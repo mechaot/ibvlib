@@ -3,3 +3,4 @@ scipy
 imageio
 opencv-contrib-python
 pylint
+pyserial

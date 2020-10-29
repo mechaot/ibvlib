@@ -15,11 +15,13 @@ class HttpStreamCamera():
     '''
         get images from http stream, such as from an android device running a streaming app
     '''
-    def __init__(self, uri):
+    def __init__(self, uri, fast_mode=False):
         '''
             :param uri: web address uri
+            :param fast_mode: set true when querying images fast 
         '''
         self._uri = uri
+        self._fast_mode = fast_mode
         self.stream = urlopen(uri)
         self.data = bytes()
 
@@ -40,7 +42,14 @@ class HttpStreamCamera():
             get next image
 
             :returns: next image in stack or None if no image available
+
+            in fast_mode we assume two consecutive calls to grab come so fast that
+            we can continue reading from the stream even if last frame did gather a
+            few bytes on the current frame already. in not fast mode we flush the
+            buffer and look for the starting magic byte anew
         '''
+        if not self._fast_mode:
+            self.data = bytes() # flush buffer
         while True:
             self.data += self.stream.read(4096) #read a junk of data
             # 0xff 0xd8 is the starting of the jpeg frame

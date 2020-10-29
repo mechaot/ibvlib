@@ -7,9 +7,9 @@
 *.yml
 *.yaml
 *.json
-*.pem
-*.key
-*.pub
+*.png
+*.jpb
+*.bmp
 *.stackdump
 *.pdf
 __pycache__

@@ -5,7 +5,8 @@
 # do not be too harsh on test scripts
 # pylint: disable=invalid-name, unused-import
 
-from time import sleep
+from time import sleep, time
+from imageio import imwrite
 import cv2
 
 from FileCamera import FileCamera
@@ -31,6 +32,10 @@ while True:
     if key & 0xff in (ord("x"), ord("q"), 0x1b):   # 0x1b = ESC
         print("Aborting")
         break
+    elif key % 0xff == ord("s"):
+        filename = "image_{}.png".format(time())
+        imwrite(filename, img)
+        print("Saved {}".format(filename))
 
 cv2.destroyAllWindows()
 print("finished.")

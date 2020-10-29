@@ -19,7 +19,8 @@ from camera.HttpCamera import HttpCamera
 
 # cam = FileCamera("./data", cycle_images=100)
 # cam = UsbCamera(0)
-# cam = HttpStreamCamera("http://192.168.10.182:8080/video?.mjpeg")
+# cam = HttpStreamCamera("http://192.168.10.182:8080/video?.mjpeg")  
+# # This works for the Android App "IP Webcam" https://play.google.com/store/apps/details?id=com.pas.webcam
 cam = HttpCamera("http://visionmaker:5000/cam")
 
 while True:
@@ -28,7 +29,10 @@ while True:
         print("Got no image")
         break
 
-    cv2.imshow('frame', img[:, :, ::-1])  # RGB -> BGR for opencv imshow
+    if img.ndim == 3: # color images need conversion
+        cv2.imshow('frame', img[:, :, ::-1])  # RGB -> BGR for opencv imshow
+    else: # gray images are OK
+        cv2.imshow('frame', img)
 
     # read keyboard input, required to make the image buffer show
     key = cv2.waitKey(1)

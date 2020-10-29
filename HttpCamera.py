@@ -2,7 +2,7 @@
     Simple USB-Camera class
 '''
 
-from urllib.parse import quote
+from urllib.parse import urlencode
 import requests
 from imageio import imread
 
@@ -36,8 +36,7 @@ class HttpCamera():
 
             :returns: next image in stack or None if no image available
         '''
-        query_string = "&".join([quote(f"{k}={v}") for k, v in self._options.items()])
-        url = self._uri + "?" + query_string
+        url = self._uri + "?" + urlencode(self._options.items())
 
         res = requests.get(url, verify=self._verify)
         if res.status_code == 200:

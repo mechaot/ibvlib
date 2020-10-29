@@ -1,6 +1,9 @@
 '''
     (c) 2020 Andreas Pösch (andreas.poesch@googlemail.com)
     MIT License
+
+    Make instances of one of the camera classes and grab images until pressing Esc or Space
+    Pressing "s" will save current image frame
 '''
 # do not be too harsh on test scripts
 # pylint: disable=invalid-name, unused-import

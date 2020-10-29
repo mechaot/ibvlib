@@ -12,10 +12,10 @@ from time import sleep, time
 from imageio import imwrite
 import cv2
 
-from FileCamera import FileCamera
-from UsbCamera import UsbCamera
-from HttpStreamCamera import HttpStreamCamera
-from HttpCamera import HttpCamera
+from camera.FileCamera import FileCamera
+from camera.UsbCamera import UsbCamera
+from camera.HttpStreamCamera import HttpStreamCamera
+from camera.HttpCamera import HttpCamera
 
 # cam = FileCamera("./data", cycle_images=100)
 # cam = UsbCamera(0)
@@ -28,7 +28,7 @@ while True:
         print("Got no image")
         break
 
-    cv2.imshow('frame', img)
+    cv2.imshow('frame', img[:, :, ::-1])  # RGB -> BGR for opencv imshow
 
     # read keyboard input, required to make the image buffer show
     key = cv2.waitKey(1)

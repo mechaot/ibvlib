@@ -24,5 +24,6 @@ doc/_build/
 build/
 dist/
 _weights/
-pyBack.egg-info/
+*.egg-info/
 .ipynb_checkpoints
+*.ipynb

@@ -4,3 +4,7 @@ imageio
 opencv-contrib-python
 pylint
 pyserial
+
+# for installation
+setuptools
+wheel

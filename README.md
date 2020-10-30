@@ -1,6 +1,16 @@
 # IBV Library
-
 Common functions used in the Lecture "Image Processing I: Industrial Imaging" at Leibniz Universität Hannover, Germany
+
+- [IBV Library](#ibv-library)
+  - [Library Structure](#library-structure)
+  - [Windows/Linux/Mac](#windowslinuxmac)
+  - [Download and install using git](#download-and-install-using-git)
+    - [Update to new release](#update-to-new-release)
+  - [Installing wihout git](#installing-wihout-git)
+    - [Update to new release](#update-to-new-release-1)
+  - [Student's Note](#students-note)
+
+## Library Structure
 
 * Camera
   - USB Camera access
@@ -14,33 +24,49 @@ Common functions used in the Lecture "Image Processing I: Industrial Imaging" at
   - Otsu's Thresholding algorithm
   - ...
 
+## Windows/Linux/Mac
 
+Linux/Mac users will most probably need to replace below *all*:
 
-## Fast download and install
+* `python` &rarr;  `python3`
+* `pip` &rarr; `pip3`
 
-To install editably in current dir's subfolder `src/ibvlib`:
+## Download and install using git
+
+To install editably with everything taken care of, in current dir's subfolder `src/ibvlib`:
 
 ```bash
   pip install -e git+https://github.com/mechaot/ibvlib.git#egg=ibvlib
 ```
 
+Note: use `--src=<dirname>` in the above command to manually specify the install folder, e.g.
 
+### Update to new release
+```bash
+  cd `ibvlib`  # you know what I mean by that
+  git pull
+```
 
-## Installing to Python environment (recommended way)
+Note: If you have edits preventing said `pull` then try this *dirty solution*:
 
-Note: Linux/Mac users might need to replace *all* 
+```bash
+  git stash      # store away your changes
+  git pull       # fetch from github
+  git stash pop  # (optional) re-apply your changes
+```
+...or learn more about using `git` properly:
 
-* `python` &rarr;  `python3`
-* `pip` &rarr; `pip3`
+## Installing wihout git
 
-1. Download + extract / clone *ibvlib*
+1. Download from https://github.com/mechaot/ibvlib/archive/master.zip as zip-Archive
+2. save && extract to your development `<workspace>/ibvlib`
 
-2. Open Terminal in *ibvlib*. `cd` to the project directory.
+3. Open Terminal in `ibvlib` (`cd` to the project directory).
     * Windows: use "cmd.exe"
     * Linux: use "bash" / "Terminal"
   
 
-3. Install dependencies
+4. Install dependencies
 
   ```bash
     pip install -r requirements.txt
@@ -55,7 +81,19 @@ Note: Linux/Mac users might need to replace *all*
 
 Note: See: https://packaging.python.org/tutorials/installing-packages/
 
+### Update to new release
 
+1. Uninstall package
+
+In cmd/bash type
+
+```bash
+  pip uninstall ibvlib
+```
+
+2. Confirm.
+
+3. Start over by downloading and extracting
 
 ## Student's Note
 

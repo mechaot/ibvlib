@@ -12,16 +12,16 @@ from time import sleep, time
 from imageio import imwrite
 import cv2
 
-from camera.FileCamera import FileCamera
-from camera.UsbCamera import UsbCamera
-from camera.HttpStreamCamera import HttpStreamCamera
-from camera.HttpCamera import HttpCamera
+# from ibvlib.camera.FileCamera import FileCamera
+from ibvlib.camera.UsbCamera import UsbCamera
+# from ibvlib.camera.HttpStreamCamera import HttpStreamCamera
+# from ibvlib.camera.HttpCamera import HttpCamera
 
 # cam = FileCamera("./data", cycle_images=100)
-# cam = UsbCamera(0)
-# cam = HttpStreamCamera("http://192.168.10.182:8080/video?.mjpeg")  
+cam = UsbCamera(0)
+# cam = HttpStreamCamera("http://192.168.10.182:8080/video?.mjpeg", fast_mode=False)
 # # This works for the Android App "IP Webcam" https://play.google.com/store/apps/details?id=com.pas.webcam
-cam = HttpCamera("http://visionmaker:5000/cam")
+# cam = HttpCamera("http://visionmaker:5000/cam")
 
 while True:
     img = cam.grab()
@@ -30,7 +30,8 @@ while True:
         break
 
     if img.ndim == 3: # color images need conversion
-        cv2.imshow('frame', img[:, :, ::-1])  # RGB -> BGR for opencv imshow
+        cv2.imshow('frame', img)  # RGB -> BGR for opencv imshow
+        # cv2.imshow('frame', img[:, :, ::-1])  # RGB -> BGR for opencv imshow
     else: # gray images are OK
         cv2.imshow('frame', img)
 

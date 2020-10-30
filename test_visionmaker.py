@@ -9,11 +9,12 @@
 # do not be too harsh on test scripts
 # pylint: disable=invalid-name, unused-import
 
+
 from time import sleep
 import matplotlib.pyplot as plt
 
-from visionmaker.connector import VisionMaker, ULTIMAKER1_PARAMS
-from camera.HttpCamera import HttpCamera
+from ibvlib.visionmaker.connector import VisionMaker, ULTIMAKER1_PARAMS
+from ibvlib.camera.HttpCamera import HttpCamera
 
 PARAMS = ULTIMAKER1_PARAMS
 PARAMS.update({"host": "visionmaker", "port": 7777})

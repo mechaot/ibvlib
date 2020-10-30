@@ -11,6 +11,7 @@ Common functions used in the Lecture "Image Processing I: Industrial Imaging" at
   - [Installing wihout git](#installing-wihout-git)
     - [Update to new release](#update-to-new-release-1)
   - [Student's Note](#students-note)
+  - [Confession of guilt](#confession-of-guilt)
 
 ## Library Structure
 
@@ -111,3 +112,8 @@ In cmd/bash type
 
 This repository is under development an will update during lessons. You can download the zip-file every few weeks, but learning about git and cloning the repository is strongly recommended.
 
+## Confession of guilt
+
+In order to maintain a clean code base these `test_*.py` files are out of place here.
+
+For the purpose of the course convenience beats pedantry... ;)

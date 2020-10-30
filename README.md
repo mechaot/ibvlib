@@ -4,6 +4,8 @@ Common functions used in the Lecture "Image Processing I: Industrial Imaging" at
 - [IBV Library](#ibv-library)
   - [Library Structure](#library-structure)
   - [Windows/Linux/Mac](#windowslinuxmac)
+    - [Installing and learning Git is **highly** encouraged](#installing-and-learning-git-is-highly-encouraged)
+    - [Linux/Mac users will most probably need to replace below *all*:](#linuxmac-users-will-most-probably-need-to-replace-below-all)
   - [Download and install using git](#download-and-install-using-git)
     - [Update to new release](#update-to-new-release)
   - [Installing wihout git](#installing-wihout-git)
@@ -26,7 +28,17 @@ Common functions used in the Lecture "Image Processing I: Industrial Imaging" at
 
 ## Windows/Linux/Mac
 
-Linux/Mac users will most probably need to replace below *all*:
+
+### Installing and learning Git is **highly** encouraged
+
+* Windows: Install git 4 windows (www.gitforwindows.org)
+  - Tipp: Select *install to PATH* and use *OpenSSH* and *Windows Credential Storage* (or similar; no Putty!)
+* Linux (Ubuntu): ```sudo apt install git```
+* Linux (Fedora): ```sudo yum install git```
+* Mac: I have no idea/test device: www.google.com/search?q=install+git+on+mac
+
+
+### Linux/Mac users will most probably need to replace below *all*:
 
 * `python` &rarr;  `python3`
 * `pip` &rarr; `pip3`

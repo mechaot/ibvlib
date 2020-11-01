@@ -24,7 +24,7 @@ cam = UsbCamera(0)
 # cam = HttpCamera("http://visionmaker:5000/cam")
 
 while True:
-    img = cam.grab() # F12
+    img = cam.grab()
     if img is None:
         print("Got no image")
         break

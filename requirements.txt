@@ -8,3 +8,5 @@ pyserial
 # for installation
 setuptools
 wheel
+
+pytest

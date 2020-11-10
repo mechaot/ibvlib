@@ -68,7 +68,7 @@ class FileCamera():
             :returns: next image in stack or None if no image available
         '''
         if self._current_index < 0 or self._current_index >= len(self._filenames):
-            if isinstance(self._cycle, int) and self._cycle > 0:
+            if isinstance(self._cycle, int) and self._cycle > 1:
                 self._cycle -= 1
                 self._current_index = 0
             elif self._cycle is True:
@@ -83,3 +83,14 @@ class FileCamera():
             return img
         else:
             return None
+
+    def __iter__(self):
+        '''
+            for image in cam...
+        '''
+        while True:
+            img = self.grab()
+            if img is None:
+                return
+            else:
+                yield img

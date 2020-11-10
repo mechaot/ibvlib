@@ -45,3 +45,14 @@ class HttpCamera():
         else:
             print(res.status_code, res.text)
             return None
+
+    def __iter__(self):
+        '''
+            for image in cam...
+        '''
+        while True:
+            img = self.grab()
+            if img is None:
+                return
+            else:
+                yield img

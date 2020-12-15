@@ -2,6 +2,7 @@
 import numpy as np
 
 __author__ = "Andreas Poesch"
+__email__ =  "andreas.poesch@googlemail.com"
     
 def otsuthreshold(mat, bins=256):
     """ calculate otsu-method based threshold of image matrix

@@ -1,23 +1,17 @@
+'''
+    extract the "viscom"-style calibration grid with big and small markers
+    where big markers are not filled and contain zero (origin), one (x), two (y) dots
+'''
+
 import cv2
-import numpy as np 
-import matplotlib.pyplot as plt 
-from imageio import imread, imwrite  
-from glob import glob 
-import os
-import re
-import scipy.ndimage as nd
-from numpy.fft import fft2, ifft2
-from scipy.ndimage import filters as flt
-from scipy.ndimage import morphology as morph
-
-
+import numpy as np
 
 def child_object_count(hierarch, idx):
     '''
         hierarch: hierarchy list
         idx index queried
-        
-        returns: 
+
+        returns:
             number of inner objects (not contours)
             number of inner contours
     '''
@@ -47,13 +41,13 @@ def sort_features(features, pivotpos):
     
         features: list [x,y] feature vector (important: first two columns are image coords)    
         pivotpos: [x,y] image coord of pivot position       
-    
+
         return index-array of new order (of course, the pivot-element will be the first within the returned array)
     '''
     feat = np.copy(features).astype(float)
-    pivotX, pivotY = pivotpos
-    feat[:,0] -= float(pivotX)
-    feat[:,1] -= float(pivotY)
+    pivot_x, pivot_y = pivotpos
+    feat[:,0] -= float(pivot_x)
+    feat[:,1] -= float(pivot_y)
     distances = np.hypot(feat[:,0],feat[:,1])
 
     indices = np.argsort(distances)
@@ -90,12 +84,12 @@ def homography_from_image(gray, scale_mm=1):
         if area < 300:
             #print('a', area)
             continue
-            
+
         #filter roundness
         if roundness < 0.92:
             #print('r', roundness)
             continue
-            
+
         [_next, _prev, _child, parent] = h
         #if (parent >= 0): #only outer contours
         #    continue
@@ -109,24 +103,23 @@ def homography_from_image(gray, scale_mm=1):
 
         color = (255,64,0)
         inner_obj, inner_cnt = child_object_count(hierarch, ii)
-        
+
         if inner_cnt and area > 4000: #one of the big hollow ones
             if inner_obj == 0:
                 color = (0,255,0)
-                cv2.putText(debug ,"0", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
+                cv2.putText(debug ,"o", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
                 markers[0] = np.array([cx,cy])
             elif inner_obj == 1:
                 color = (255,127,0)
-                cv2.putText(debug ,"1", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
+                cv2.putText(debug ,"x", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
                 markers[1] = np.array([cx,cy])
             elif inner_obj == 2:
-                cv2.putText(debug ,"2", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
+                cv2.putText(debug ,"y", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
                 color = (0,127,255)
                 markers[2] = np.array([cx,cy])
             
             print("big object:", inner_cnt, inner_obj)
-    
-        
+
         features.append(cnt)
         centers.append( (cx,cy) )
         
@@ -137,7 +130,7 @@ def homography_from_image(gray, scale_mm=1):
         origin = markers[0]
         vx = (1.0 / 4.0) * (markers[1] - origin)   #x-base vector
         vy = (1.0 / 4.0) * (markers[2] - origin)   #y-base vector
-    
+
         # estimate a homography from guessing the (1,1) point
         p11 = origin + 1 * vx + 1 * vy
         order = sort_features(centers, p11)
@@ -166,4 +159,3 @@ def homography_from_image(gray, scale_mm=1):
         H, _ = cv2.findHomography(all_logical, all_image, 0)
 
     return H, debug
-    

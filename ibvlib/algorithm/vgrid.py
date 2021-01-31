@@ -2,6 +2,8 @@
     extract the "viscom"-style calibration grid with big and small markers
     where big markers are not filled and contain zero (origin), one (x), two (y) dots
 '''
+# pylint: disable=invalid-name
+#   (migrate old tested code)
 
 import cv2
 import numpy as np
@@ -38,9 +40,9 @@ def child_object_count(hierarch, idx):
 
 def sort_features(features, pivotpos):
     ''' sort features by eucledian distance to pivot position ascending
-    
-        features: list [x,y] feature vector (important: first two columns are image coords)    
-        pivotpos: [x,y] image coord of pivot position       
+
+        features: list [x,y] feature vector (important: first two columns are image coords)
+        pivotpos: [x,y] image coord of pivot position
 
         return index-array of new order (of course, the pivot-element will be the first within the returned array)
     '''
@@ -117,12 +119,11 @@ def homography_from_image(gray, scale_mm=1):
                 cv2.putText(debug ,"y", (cx - 5,cy), cv2.FONT_HERSHEY_SIMPLEX, 2.2, (127,255,0),3)
                 color = (0,127,255)
                 markers[2] = np.array([cx,cy])
-            
+
             print("big object:", inner_cnt, inner_obj)
 
         features.append(cnt)
         centers.append( (cx,cy) )
-        
         cv2.drawContours(debug, [cnt], -1, color, 1)    #into debug-image, draw filtered contours, all of them, in red
 
     if len(markers) == 3:
@@ -152,7 +153,7 @@ def homography_from_image(gray, scale_mm=1):
 
                 all_logical.append([x*scale_mm,y*scale_mm])
                 all_image.append(center)
-                
+
         all_logical = np.array(all_logical)
         all_image = np.array(all_image)
 

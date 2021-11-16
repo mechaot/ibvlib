@@ -47,15 +47,16 @@ class VisionMaker():
             self._serial.close()
     
     def cmd(self, line):
-        self._serial.write(line, end="\r")
+        self._serial.write(line, end="\r\r")
         self._serial.flush()
 
     def is_moving(self):
-        self.cmd("M49") # custom code
+        self.cmd("M49")  # custom code
         r = None
         while r is None:
             r = self._serial.getLine()
-            if r == "BUSY": # ignore ack to the ? command
+            if r == "BUSY":  # ignore ack to the ? command
+                sleep(0.15)
                 return True
             elif r == "IDLE":
                 return False
@@ -149,19 +150,28 @@ class VisionMaker():
         if index is None:
             index = -1
             apply = True
-        cmd = f"M61 p{index}"
-        if color is None:
-            if r is not None:
-                cmd += f" r{r}"
-            if g is not None:
-                cmd += f" g{g}"
-            if b is not None:
-                cmd += f" b{b}"
+        if isinstance(index, int):
+            cmd = f"M61 p{index}"
+            if color is None:
+                if r is not None:
+                    cmd += f" r{r}"
+                if g is not None:
+                    cmd += f" g{g}"
+                if b is not None:
+                    cmd += f" b{b}"
+            else:
+                cmd += " r{0} g{1} b{2} ".format(*color)
+            if apply:
+                cmd += " a1"
+            self.cmd(cmd)
+        elif hasattr(index, '__iter__'):
+            for i, idx in enumerate(index):
+                self.set_neopixel(idx, r, g, b, color, apply=False)
+                sleep(0.005) # give comm time enough
+                if apply:
+                    self.apply_neopixel()
         else:
-            cmd += " r{0} g{1} b{2} ".format(*color)
-        if apply:
-            cmd += " a1"
-        self.cmd(cmd)
+            raise TypeError("Index neither int nor list of int")
 
     def apply_neopixel(self):
         '''
@@ -179,19 +189,28 @@ class VisionMaker():
         if index is None:
             index = -1
             apply = True
-        cmd = f"M63 p{index}"
-        if color is None:
-            if r is not None:
-                cmd += f" r{r}"
-            if g is not None:
-                cmd += f" g{g}"
-            if b is not None:
-                cmd += f" b{b}"
+        if isinstance(index, int):
+            cmd = f"M63 p{index}"
+            if color is None:
+                if r is not None:
+                    cmd += f" r{r}"
+                if g is not None:
+                    cmd += f" g{g}"
+                if b is not None:
+                    cmd += f" b{b}"
+            else:
+                cmd += " r{0} g{1} b{2} ".format(*color)
+            if apply:
+                cmd += " a1"
+            self.cmd(cmd)
+        elif hasattr(index, '__iter__'):
+            for i, idx in enumerate(index):
+                self.set_neopixel2(idx, r, g, b, color, apply=False)
+                sleep(0.005) # give comm time enough
+                if apply:
+                    self.apply_neopixel2()
         else:
-            cmd += " r{0} g{1} b{2} ".format(*color)
-        if apply:
-            cmd += " a1"
-        self.cmd(cmd)
+            raise TypeError("Index neither int nor list of int")
 
 
     def apply_neopixel2(self):

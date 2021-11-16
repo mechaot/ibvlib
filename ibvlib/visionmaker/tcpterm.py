@@ -116,7 +116,7 @@ class TcpTerminal(Thread):
         self.sock.send(rq)
         tic = time()
         while (tic + timeout) < time():
-            if len(self.inLines):
+            if len(self.inLines) > 0:
                 return self.getLine()
             else:
                 sleep(0.1)
@@ -169,6 +169,12 @@ class TcpTerminal(Thread):
                 ch = self.sock.recv(1)
             except ConnectionAbortedError: # will raise on finishing connection cleanly
                 break
+            except ConnectionResetError:
+                print("Autoreconnect after reset")
+                self.connect()
+                sleep(1)
+                self._termReq = False
+                continue
             buffer += ch
             idx = buffer.find(bytes('\n', 'ascii'))
             if idx >= 0:
